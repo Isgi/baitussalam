@@ -17,7 +17,7 @@
   <body style="background-color: #eee">
     <div class="container">
       <div style="text-align:center">
-        <h1>RATNANINGSIH <small>(TK, TB)</small> </h1>
+        <h1>BAITUSSALAM <small>(TK, TB, TB, KB)</small> </h1>
       </div>
       <form class="form-signin" method="post" action="auth/actlogin">
         <h2 class="form-signin-heading">Sign in</h2>

@@ -37,21 +37,28 @@ class Laporan extends CI_Controller{
 
   function bulanan(){
     $this->load->library('mypagination');
+    $this->load->model('mkelas');
     $bln = $this->input->get('tgl');
+    $kelas = $this->input->get('kelas');
     if (empty($bln))
       $bln = gmdate("Y-m", time()+60*60*7);
 
-    $total_laporan = $this->mpembayaran->getpembayaranbulanan($bln)->num_rows();
+    $total_laporan = $this->mpembayaran->getpembayaranbulanan($bln, $kelas)->num_rows();
     $pagination = $this->mypagination->pagination('laporan/bulanan',$total_laporan,3);
+    $data_kelas = $this->mkelas->getKelas()->result();
 
-    $data_content = $this->mpembayaran->getpembayaranbulanan($bln,$pagination['per_page'],$pagination['page'])->result();
+    $data_content = $this->mpembayaran->getpembayaranbulanan($bln, $kelas,$pagination['per_page'],$pagination['page'])->result();
     $data_page    = array(
     'title'     => 'Laporan '. date("M Y", strtotime($bln)),
     'button'    => '<a href="{site_url(laporan/harian)}"><button class="btn btn-success">Harian</button></a>
                     <a href="{site_url(laporan/bulanan)}"><button disabled class="btn btn-warning">Bulanan</button></a>
                     <a href="{site_url(laporan/tahunan)}"><button class="btn btn-primary">Tahunan</button></a>',
     'side_bar'  => $this->mmenu->getmenu()->result(),
-    'content'   => $this->parser->parse('laporan_bulanan', array('data_content' => $data_content, 'form_cari' => $bln, 'link' => $pagination['link']),true)
+    'content'   => $this->parser->parse('laporan_bulanan', array(
+      'data_content' => $data_content,
+      'form_cari' => $bln,
+      'link' => $pagination['link'],
+      'data_kelas' => $data_kelas),true)
     );
     $this->parser->parse('main', $data_page);
   }
@@ -95,10 +102,12 @@ class Laporan extends CI_Controller{
 
         break;
       case 'bulanan':
+        $kelas = $this->input->get('kelas');
         if (empty($tgl)){
           $tgl = gmdate("Y-m", time()+60*60*7);
         }
-        $data_content = $this->mpembayaran->getpembayaranbulanan($tgl)->result();
+
+        $data_content = $this->mpembayaran->getpembayaranbulanan($tgl, $kelas)->result();
 
         $data_page = array(
           'data_title' => 'Bulanan '.date("M Y", strtotime($tgl)),
@@ -123,5 +132,38 @@ class Laporan extends CI_Controller{
 
         break;
     }
+  }
+
+  public function setoran() {
+    $this->load->model('mjenispembayaran');
+    $this->load->model('mkelas');
+    $this->load->library('m_pdf');
+    $bln = $this->input->get('tgl');
+    $kelas = $this->input->get('kelas');
+    if (empty($bln))
+      $bln = gmdate("Y-m", time()+60*60*7);
+
+    $data_content_SD = $this->mpembayaran->getSetoran($bln, $kelas, 'SD')->result();
+    $data_content_TK = $this->mpembayaran->getSetoran($bln, $kelas, 'TK')->result();
+    $data_content_KB = $this->mpembayaran->getSetoran($bln, $kelas, 'KB')->result();
+    $data_content_TB = $this->mpembayaran->getSetoran($bln, $kelas, 'TB')->result();
+    $data_jenis_pembayaran = $this->mjenispembayaran->getJenisPembayaran()->result();
+    $data_kelas = $this->mkelas->getKelasBy(array('id'=>$kelas))->row_array();
+
+    $html = $this->parser->parse('laporan_setoran', array(
+      'data_content_SD' => $data_content_SD,
+      'data_content_TK' => $data_content_TK,
+      'data_content_KB' => $data_content_KB,
+      'data_content_TB' => $data_content_TB,
+      'data_jenis_pembayaran' => $data_jenis_pembayaran,
+      'bln' => $bln,
+      'data_kelas' => $data_kelas
+    ), true);
+
+    $pdf = $this->m_pdf->load();
+    $pdf->SetDisplayMode('fullpage');
+    $pdf->WriteHTML($html);
+    $pdf->Output("jajal.pdf","I");
+
   }
 }

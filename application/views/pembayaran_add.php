@@ -80,7 +80,7 @@
       </div>
     </div>
   </div>
-
+  
   <div class="col-sm-5">
     <div class="card">
       <div class="header">
@@ -122,7 +122,6 @@
                   <?php
                     $kekurangan = $data->harga - $data->nominal;
                     echo $data->nama.' = Rp.'.$kekurangan.' <i>untuk '.date('Y', strtotime($data->tgl_setoran)).'</i>';
-
                   ?>
                 </li>
               <?php endforeach; ?>

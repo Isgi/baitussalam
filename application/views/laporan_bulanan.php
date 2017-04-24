@@ -2,15 +2,32 @@
 <link href="{base_url(assets/css/back/style.css)}" rel="stylesheet">
 <link href="{base_url(assets/css/back/bootstrap-datetimepicker.css)}" rel="stylesheet">
 
-<div class="container">
+<div class="">
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-7">
       <form class="form-inline" action="<?php echo site_url('laporan/bulanan') ?>" method="get">
         <div class="form-group">
           <div class="input-group date form_date" data-date="" data-date-format="MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-            <input class="form-control border-input" placeholder="Pilih bulan" size="16" type="text" value="" readonly>
+            <input class="form-control" placeholder="Pilih bulan" size="16" type="text" value="" readonly>
             <input type="hidden" name="tgl" id="dtp_input2" /><br/>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon border-input"><span class="glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit" type="button"><i class="ti-filter"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <select class="form-control" name="kelas">
+              <option value="">--- Semua Kelas ---</option>
+              <?php foreach ($data_kelas as $data):
+                if ($this->input->get('kelas') == $data->id):?>
+                  <option selected value="<?php echo $data->id ?>"><?php echo $data->nama_kelas.' ('.$data->derajat.')' ?></option>
+                <?php else: ?>
+                  <option value="<?php echo $data->id ?>"><?php echo $data->nama_kelas.' ('.$data->derajat.')' ?></option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
             <span class="input-group-btn">
                 <button class="btn btn-primary" type="submit" type="button"><i class="ti-filter"></i></button>
             </span>
@@ -18,8 +35,11 @@
         </div>
       </form>
     </div>
-    <div class="col-sm-2 pull-right">
+    <div class="col-sm-2">
       <a href="<?php echo site_url('laporan/cetak/'.$this->uri->segment(2).'?'.$_SERVER['QUERY_STRING']) ?>"><button type="button" class="btn btn-default" name="button">Cetak <i class="ti-printer"></i></button></a>
+    </div>
+    <div class="col-sm-2">
+      <a href="<?php echo site_url('laporan/setoran/'.$this->uri->segment(2).'?'.$_SERVER['QUERY_STRING']) ?>"><button type="button" class="btn btn-default" name="button">Cetak Laporan Setoran <i class="ti-printer"></i></button></a>
     </div>
   </div>
 </div>
@@ -27,30 +47,30 @@
 <div class="row">
         <!--Default Pannel, Primary Panel And Success Panel   -->
     <div class="">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="no-sort">No. Induk</th>
-                    <th class="no-sort">Nama</th>
-                    <th class="no-sort">Program</th>
-                    <th class="no-sort">Pembayaran</th>
-                    <th class="no-sort">Dibayarkan</th>
-                    <th class="no-sort">Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($data_content as $data): ?>
-                <tr class="odd gradeX">
-                    <td><?php echo $data->no_induk?></td>
-                    <td><?php echo $data->murid ?></td>
-                    <td><?php echo $data->program?></td>
-                    <td><?php echo $data->pembayaran?></td>
-                    <td><?php echo $data->nominal?></td>
-                    <td><?php echo $data->harga?></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-        </table>
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th class="no-sort">No. Induk</th>
+                  <th class="no-sort">Nama</th>
+                  <th class="no-sort">Program</th>
+                  <th class="no-sort">Jenis</th>
+                  <th class="no-sort">Nominal</th>
+                  <th class="no-sort">Tgl Setoran</th>
+              </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($data_content as $data): ?>
+              <tr class="odd gradeX">
+                  <td><?php echo $data->no_induk?></td>
+                  <td><?php echo $data->murid ?></td>
+                  <td><?php echo $data->program?></td>
+                  <td><?php echo $data->pembayaran?></td>
+                  <td><?php echo $data->nominal?></td>
+                  <td><?php echo date('d-M-Y', strtotime($data->tgl_setoran))?></td>
+              </tr>
+            <?php endforeach ?>
+          </tbody>
+      </table>
     </div>
     <?php echo $link?>
         <!--End Default Pannel, Primary Panel And Success Panel   -->

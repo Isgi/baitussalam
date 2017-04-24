@@ -6,8 +6,9 @@ class Mjenispembayaran extends CI_Model{
     $this->db->insert('jenis_pembayaran', $data);
   }
   public function getJenisPembayaran(){
-    $query = $this->db->order_by('nama','ASC')
+    $query = $this->db->order_by('id','ASC')
     ->get('jenis_pembayaran');
+
     return $query;
   }
   public function getJenisPembayaranBy($data){

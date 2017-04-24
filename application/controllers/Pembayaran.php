@@ -63,8 +63,6 @@ class Pembayaran extends CI_Controller {
       $penyetor   = $this->input->get('penyetor');
       $nominal    = $this->input->get('nominal');
       $tgl_setoran= $this->input->get('tgl_setoran');
-      
-
       $data_pembayaran = array
       (
         'murid'           => $id_murid,
@@ -74,8 +72,6 @@ class Pembayaran extends CI_Controller {
         'tgl_setoran'     => $tgl_setoran,
         'dibuat'          => gmdate("Y-m-d H:i:s", time()+60*60*7)
       );
-      // print_r($data_pembayaran);
-      // die();
       $this->mpembayaran->insertPembayaran($data_pembayaran);
       if($this->db->affected_rows() > 0)
         $this->session->set_flashdata('message',"<div class='alert alert-success' role='alert'>Tambah BERHASIL</div>");
