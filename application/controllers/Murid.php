@@ -169,11 +169,6 @@ class Murid extends CI_Controller{
     $id = $this->input->post('id');
     $no_induk = $this->input->post('no_induk');
     $nama = $this->input->post('nama');
-    $jk = $this->input->post('jk');
-    $nama_panggilan = $this->input->post('nama_panggilan');
-    $ttl = $this->input->post('ttl');
-    $ortu = $this->input->post('ortu');
-    $alamat = $this->input->post('alamat');
     $program = $this->input->post('program');
     $kelas = $this->input->post('kelas');
 
@@ -182,11 +177,6 @@ class Murid extends CI_Controller{
       'id'             => $id,
       'no_induk'       => $no_induk,
       'nama'           => $nama,
-      'jk'             => $jk,
-      'nama_panggilan' => $nama_panggilan,
-      'ttl'            => $ttl,
-      'ortu'           => $ortu,
-      'alamat'         => $alamat,
       'program'        => $program,
       'kelas'          => $kelas
     );

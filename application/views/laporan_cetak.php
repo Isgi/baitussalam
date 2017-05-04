@@ -34,14 +34,14 @@ class FPDF_AutoWrapTable extends FPDF {
 
 		//header
 		$this->SetFont("", "B", 10);
-		$this->MultiCell(0, 9, 'Laporan transaksi ratnaningsih '.$this->data_title);
+		$this->MultiCell(0, 9, 'Laporan transaksi baitussalam '.$this->data_title);
 		$this->Cell(0, 1, " ", "B");
 		$this->Ln(10);
 		$this->SetFont("", "B", 10);
 		$this->SetX($left); $this->Cell(0, 10, 'LAPORAN TRANSAKSI ', 0, 1,'C');
 		$this->Ln(10);
 		$this->SetFont("", "B", 10);
-		$this->SetX($left); $this->Cell(0, 10, 'RATNANINGSIH KB & TK, '.$this->data_title, 0, 1,'C');
+		$this->SetX($left); $this->Cell(0, 10, 'BAITUSSALAM SD, TK, KB & TB, '.$this->data_title, 0, 1,'C');
 		$this->Ln(10);
 
 		$h = 13;
@@ -89,7 +89,7 @@ class FPDF_AutoWrapTable extends FPDF {
 				'program' => ($data->program == 'Reguler' ? 'R' : ($data->program == 'Fullday' ? 'F' : 'H')),
 				'dibayarkan' => $data->nominal,
 				'harga' => $data->harga,
-				'tgl' => date('d-M-Y', strtotime($data->tgl_setoran))
+				'tgl' => date('d M Y', strtotime($data->tgl_setoran))
 			);
 			$this->Row (
 				array(

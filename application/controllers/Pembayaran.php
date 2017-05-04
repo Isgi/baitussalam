@@ -73,11 +73,38 @@ class Pembayaran extends CI_Controller {
         'dibuat'          => gmdate("Y-m-d H:i:s", time()+60*60*7)
       );
       $this->mpembayaran->insertPembayaran($data_pembayaran);
-      if($this->db->affected_rows() > 0)
+      if($this->db->affected_rows() > 0){
         $this->session->set_flashdata('message',"<div class='alert alert-success' role='alert'>Tambah BERHASIL</div>");
+        $this->session->set_flashdata('pembayaran', $data_pembayaran);
+        redirect('pembayaran/cetak');
+      }
       else
         $this->session->set_flashdata('message',"<div class='alert alert-danger' role='alert'>Tambah GAGAL</div>");
       redirect('pembayaran/search');
+    }
+
+    public function cetak($id=null){
+        $this->load->model('mmurid');
+        $this->load->model('mitempembayaran');
+        $this->load->library('m_pdf');
+        $pdf = $this->m_pdf->load(["en-GB","","","","","","","","","",""]);
+        if ($id == null) {
+          $pembayaran = $this->session->flashdata('pembayaran');
+        }else{
+          $pembayaran = $this->mpembayaran->getPembayaranByGroup($group)->result_array();
+        }
+        $data_murid = $this->mmurid->getmuridbyid($pembayaran['murid'])->row_array();
+        $item_pembayaran = $this->mitempembayaran->getItemPembayaranById($pembayaran['item_pembayaran'])->row_array();
+        $data_content = array('pembayaran' => $pembayaran, 'data_murid' => $data_murid, 'item_pembayaran' => $item_pembayaran);
+        $html = $this->load->view('kwitansi', $data_content, true);
+        $pdf->SetDisplayMode('fullpage');
+        $pdf->WriteHTML($html);
+        if ($group == null) {
+          $pdf->Output("kwitansi-".time()."-".$data_content['data_murid']['no_induk'].".pdf","D");
+        }else{
+          $pdf->Output();
+        }
+        redirect("pembayaran/search");
     }
 
     public function search(){

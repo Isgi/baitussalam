@@ -10,6 +10,7 @@ class Mmurid extends CI_Model{
     ->join('kelas', 'kelas.id = murid.kelas')
     ->join('sekolah', 'sekolah.id = kelas.sekolah')
     ->join('program', 'program.id = murid.program')
+    ->order_by('murid.dibuat', 'DESC')
     ->get('murid',$limit,$offset);
     return $query;
   }
@@ -18,7 +19,9 @@ class Mmurid extends CI_Model{
     ->join('kelas', 'kelas.id = murid.kelas')
     ->join('sekolah', 'sekolah.id = kelas.sekolah')
     ->join('program', 'program.id = murid.program')
+    ->order_by('murid.dibuat', 'DESC')
     ->like('murid.nama', $query['nama_or_nis']);
+
     if ($query['kelas'] != "") {
       $this->db->where('murid.kelas',$query['kelas']);
     }
@@ -33,8 +36,9 @@ class Mmurid extends CI_Model{
     return $query;
   }
   public function getMuridById($id){
-    $query = $this->db->select('murid.id, no_induk, murid.nama, murid.program, murid.kelas, sekolah.derajat')
+    $query = $this->db->select('murid.id, no_induk, murid.nama, murid.program, murid.kelas, kelas.nama as nama_kelas, program.nama as nama_program, sekolah.derajat')
     ->join('kelas','kelas.id=murid.kelas')
+    ->join('program', 'program.id=murid.program')
     ->join('sekolah','sekolah.id=kelas.sekolah')
     ->get_where('murid', array('murid.id' => $id ));
     return $query;

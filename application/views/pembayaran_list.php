@@ -30,30 +30,30 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="no-sort">No. Induk</th>
-            <th class="no-sort">Nama</th>
-            <th class="no-sort">Derajat</th>
-            <th class="no-sort">Kelas</th>
-            <th class="no-sort">Pembayaran</th>
-            <th class="no-sort">nominal</th>
-            <th class="no-sort">Tgl Setoran</th>
-            <th>Status</th>
+            <th style="text-align:center"><small>No. Induk</small></th>
+            <th style="text-align:center"><small>Nama</small></th>
+            <th style="text-align:center"><small>Derajat</small></th>
+            <th style="text-align:center"><small>Kelas</small></th>
+            <th style="text-align:center"><small>Pembayaran</small></th>
+            <th style="text-align:center"><small>Nominal <b>(Rp)</b></small></th>
+            <th style="text-align:center"><small>Setoran</small></th>
+            <th style="text-align:center">Status</th>
             <th class="no-sort">#</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($data_content as $data): ?>
           <tr class="odd gradeX">
-            <td><?php echo $data->no_induk?></td>
-            <td><?php echo $data->nama_murid ?></td>
-            <td><?php echo $data->derajat?></td>
-            <td><?php echo $data->nama_kelas?></td>
-            <td><?php echo $data->nama_pembayaran?></td>
-            <td><?php echo $data->jumlah_nominal?></td>
-            <td><?php echo $data->tgl_setoran?></td>
+            <td><?php echo "<small>$data->no_induk</small>"?></td>
+            <td><?php echo "<small>$data->nama_murid</small>" ?></td>
+            <td style="text-align:center"><?php echo $data->derajat?></td>
+            <td style="text-align:center"><?php echo "<small>$data->nama_kelas</small>"?></td>
+            <td><?php echo "<small>$data->nama_pembayaran</small>"?></td>
+            <td style="text-align:right"><?php echo $data->jumlah_nominal?></td>
+            <td><?php echo '<small>'.date('d M Y', strtotime($data->tgl_setoran)).'</small>' ?></td>
             <td><?php
               $hasil = $data->jumlah_nominal - $data->harga;
-              if( $hasil >= 0){echo "Lunas <b> > $hasil</b>";} else{echo "Belum Lunas <b> < $hasil</b>";} ?></td>
+              if( $hasil >= 0){echo "Lunas <b> > $hasil</b>";} else{echo "<small style='color:red'>Belum Lunas</small> <b>  $hasil</b>";} ?></td>
             <td>
               <a title="Lihat Rincian" href="<?php
               $dt = new DateTime($data->tgl_setoran);

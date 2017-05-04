@@ -160,7 +160,7 @@ class Laporan extends CI_Controller{
       'data_kelas' => $data_kelas
     ), true);
 
-    $pdf = $this->m_pdf->load();
+    $pdf = $this->m_pdf->load(["en-GB","A4-L","","",10,10,10,10,6,3,"L"]);
     $pdf->SetDisplayMode('fullpage');
     $pdf->WriteHTML($html);
     $pdf->Output("jajal.pdf","I");

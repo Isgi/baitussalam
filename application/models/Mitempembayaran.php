@@ -24,6 +24,12 @@ class Mitempembayaran extends CI_Model{
     $query = $this->db->get_where('item_pembayaran',$data);
     return $query;
   }
+	public function getItemPembayaranById($id){
+    $query = $this->db->select('harga, kode, nama')
+		->join('jenis_pembayaran', 'jenis_pembayaran.id = item_pembayaran.jenis_pembayaran')
+		->get_where('item_pembayaran', array('item_pembayaran.id' => $id ));
+    return $query;
+  }
   public function updateItemPembayaran($data){
 
     $this->db->where('id', $data['id'])

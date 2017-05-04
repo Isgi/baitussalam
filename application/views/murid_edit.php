@@ -19,10 +19,6 @@
                      <label>Nama</label>
                      <input type="text" name="nama" value="<?php echo $data_edit['nama'] ?>" class="form-control border-input" required placeholder="Nama">
                  </div>
-                 <div class="form-group">
-                     <label>Nama Panggilan</label>
-                     <input type="text" name="nama_panggilan" value="<?php echo $data_edit['nama_panggilan'] ?>" class="form-control border-input" required placeholder="Nama">
-                 </div>
                  <div class="row">
                    <div class="col-sm-6">
                      <div class="form-group">
@@ -52,18 +48,6 @@
                        <?php endforeach; ?>
                      </div>
                    </div>
-                 </div>
-                 <div class="form-group">
-                     <label>Tempat tanggal lahir</label>
-                     <input type="text" name="ttl" value="<?php echo $data_edit['ttl'] ?>" class="form-control border-input" required placeholder="Tempat tanggal lahir">
-                 </div>
-                 <div class="form-group">
-                     <label>Nama Ortu</label>
-                     <input type="text" name="ortu" value="<?php echo $data_edit['ortu'] ?>" class="form-control border-input" required placeholder="Nama Ortu">
-                 </div>
-                 <div class="form-group">
-                     <label>Alamat</label>
-                     <input type="text" name="alamat" value="<?php echo $data_edit['alamat'] ?>" class="form-control border-input" required placeholder="Nama Ortu">
                  </div>
                  <button type="submit" class="btn btn-success">Simpan</button
              </form>

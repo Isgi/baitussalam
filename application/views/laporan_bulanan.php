@@ -66,7 +66,7 @@
                   <td><?php echo $data->program?></td>
                   <td><?php echo $data->pembayaran?></td>
                   <td><?php echo $data->nominal?></td>
-                  <td><?php echo date('d-M-Y', strtotime($data->tgl_setoran))?></td>
+                  <td><?php echo date('d M Y', strtotime($data->tgl_setoran))?></td>
               </tr>
             <?php endforeach ?>
           </tbody>
