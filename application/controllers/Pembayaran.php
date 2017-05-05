@@ -40,7 +40,7 @@ class Pembayaran extends CI_Controller {
       $data_lunas_tdk = $this->mpembayaran->getlunastdkdiket($id)->result();
 
       $data_page    = array(
-      'title'     => 'Pembayaran Baru',
+      'title'     => '<div class="navbar-brand" style="margin-left:-45px"><a href='.site_url('pembayaran/search').'> Transaksi Baru</a> / '.$data_murid["nama"].' </div>',
       'button'    => '',
       'side_bar'  => $this->mmenu->getmenu()->result(),
       'content'   => $this->parser->parse('pembayaran_add', array

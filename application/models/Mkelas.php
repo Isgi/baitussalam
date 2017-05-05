@@ -14,6 +14,7 @@ class Mkelas extends CI_Model{
   public function getKelas(){
     $query = $this->db->select('kelas.id, sekolah.nama, sekolah.derajat, kelas.nama as nama_kelas , kelas.kapasitas as kapasitas_kelas')
     ->join('sekolah', 'sekolah.id = kelas.sekolah')
+		->order_by('kelas.nama', 'ASC')
     // ->group_by('sekolah')
     ->get('kelas');
     return $query;

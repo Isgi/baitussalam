@@ -50,23 +50,23 @@
       <table class="table table-striped">
           <thead>
               <tr>
-                  <th class="no-sort">No. Induk</th>
-                  <th class="no-sort">Nama</th>
-                  <th class="no-sort">Program</th>
-                  <th class="no-sort">Jenis</th>
-                  <th class="no-sort">Nominal</th>
-                  <th class="no-sort">Tgl Setoran</th>
+                  <th style="text-align:center">No. Induk</th>
+                  <th style="text-align:center">Nama</th>
+                  <th style="text-align:center">Program</th>
+                  <th style="text-align:center">Jenis</th>
+                  <th style="text-align:center">Nominal</th>
+                  <th style="text-align:center">Tgl Setoran</th>
               </tr>
           </thead>
           <tbody>
             <?php foreach ($data_content as $data): ?>
               <tr class="odd gradeX">
-                  <td><?php echo $data->no_induk?></td>
+                  <td style="text-align:center"><?php echo $data->no_induk?></td>
                   <td><?php echo $data->murid ?></td>
-                  <td><?php echo $data->program?></td>
+                  <td style="text-align:center"><?php echo $data->program?></td>
                   <td><?php echo $data->pembayaran?></td>
-                  <td><?php echo $data->nominal?></td>
-                  <td><?php echo date('d M Y', strtotime($data->tgl_setoran))?></td>
+                  <td style="text-align:right"><?php echo $data->nominal?></td>
+                  <td style="text-align:center"><?php echo date('d M Y', strtotime($data->tgl_setoran))?></td>
               </tr>
             <?php endforeach ?>
           </tbody>

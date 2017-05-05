@@ -37,7 +37,7 @@
           <ul class="nav">
             {side_bar}
               <li>
-                  <a href=<?php echo site_url() ?>/{url}>
+                  <a href=<?php echo site_url() ?>{url}>
                       <i class={icon}></i>
                       <p>{nama}</p>
                   </a>
@@ -65,7 +65,7 @@
                             <a href="#"><i class="ti-settings"></i><p> Settings</p></a>
                         </li> -->
                         <li>
-                            <a href="<?php echo site_url('auth/actLogout') ?>"><i class="ti-power-off"></i><p> Log Out</p></a>
+                            <a href="<?php echo site_url('auth/actLogout') ?>"><i class="ti-power-off"></i> <p> Log Out</p></a>
                         </li>
                     </ul>
                 </div>

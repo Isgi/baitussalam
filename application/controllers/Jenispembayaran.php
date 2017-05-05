@@ -45,7 +45,7 @@ class Jenispembayaran extends CI_Controller{
     $data_edit = $this->mjenispembayaran->getjenispembayaranby(array('id' => $id))->result();
 
     $data_page    = array(
-    'title'     => 'Edit Jenis Pembayaran '.$data_edit[0]->nama,
+    'title'     => '<div class="navbar-brand" style="margin-left:-45px"><a href='.site_url('jenispembayaran').'> Jenis Pembayaran</a> / Ubah '.$data_edit[0]->nama.' </div>',
     'button'    => '',
     'side_bar'  => $this->mmenu->getmenu()->result(),
     'content'   => $this->parser->parse('jenis_pembayaran_edit', array('data_edit' => $data_edit),true)

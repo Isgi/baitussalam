@@ -155,8 +155,15 @@ class Murid extends CI_Controller{
     $data_kelas = $this->mkelas->getkelas()->result();
     $data_program = $this->mprogram->getprogram()->result();
 
+    // print_r($this->session->userdata('uri-3'));
+    // die();
+    // if ($this->session->flashdata('uri-3') != '')
+    //   $title = '<div class="navbar-brand" style="margin-left:-45px"><a href='.site_url('murid/index/'.$this->session->flashdata('uri-3')).'> Murid</a> / Ubah '.$data_edit["nama"].' </div>';
+    // else
+      $title = '<div class="navbar-brand" style="margin-left:-45px"><a href='.site_url('murid').'> Murid</a> / Ubah '.$data_edit["nama"].' </div>';
+
     $data_page    = array(
-    'title'     => 'Murid -> Ubah '.$data_edit['nama'],
+    'title'     => $title,
     'button'    => '',
     'side_bar'  => $this->mmenu->getmenu()->result(),
     'content'   => $this->parser->parse('murid_edit', array('data_edit' => $data_edit, 'data_kelas' => $data_kelas, 'data_program' => $data_program),true)

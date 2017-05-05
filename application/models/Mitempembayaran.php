@@ -15,7 +15,8 @@ class Mitempembayaran extends CI_Model{
     ->join('program','program.id = item_pembayaran.program')
     ->join('jenis_pembayaran','jenis_pembayaran.id = item_pembayaran.jenis_pembayaran')
     ->join('sekolah','sekolah.id = item_pembayaran.sekolah')
-    ->order_by('jenis_pembayaran.id','desc')
+    ->order_by('jenis_pembayaran.nama','asc')
+		->order_by('derajat','asc')
     // ->group_by('jenis_pembayaran')
     ->get('item_pembayaran');
     return $query;

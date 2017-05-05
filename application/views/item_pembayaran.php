@@ -63,25 +63,23 @@
                           <tr>
                               <th style="width:40%">Pembayaran</th>
                               <th style="width:20%">Program</th>
-                              <th style="width:10%">Untuk</th>
                               <th style="width:10%">Harga</th>
                               <th style="width:20%; text-align:center">#</th>
                           </tr>
                       </thead>
                       <tbody>
-                          {data_content}
+                        <?php foreach ($data_content as $data): ?>
                           <tr>
-                              <td>{jenis_pembayaran}</td>
-                              <td>{program}</td>
-                              <td><b style="text-transform:uppercase">{derajat}</b></td>
-                              <td>{harga}</td>
+                              <td><?php echo "$data->jenis_pembayaran <b>$data->derajat</b>"?>  </td>
+                              <td><b><?php  echo ($data->program == 'biasa' ?  "<div style='color:gray; font-size:12px'>$data->program</div>" : "<div style='color:#c78700; font-size:12px'>$data->program</div>") ?></b></td>
+                              <td><?php echo $data->harga ?></td>
                               <td style="text-align:center">
-                                <a title="Ubah data {jenis_pembayaran}" href="<?php echo site_url('itempembayaran/edit/{id}') ?>"><i style="color:orange" class="ti-pencil"></i></a>
+                                <a title="Ubah data {jenis_pembayaran}" href="<?php echo site_url('itempembayaran/edit/'.$data->id) ?>"><i style="color:orange" class="ti-pencil"></i></a>
                                 &nbsp  &nbsp
-                                <a href="javascript:void(0);" title="Hapus data {jenis_pembayaran}" onclick="actdelete({id})"><i style="color:red" class="ti-close"></i></a>
+                                <a href="javascript:void(0);" title="Hapus data {jenis_pembayaran}" onclick="actdelete(<?php echo $data->id ?>)"><i style="color:red" class="ti-close"></i></a>
                               </td>
                           </tr>
-                          {/data_content}
+                        <?php endforeach; ?>
                       </tbody>
                   </table>
               </div>

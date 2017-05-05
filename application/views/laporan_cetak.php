@@ -9,12 +9,7 @@ require_once BASEPATH.'../application/libraries/fpdf17/fpdf.php';
 class FPDF_AutoWrapTable extends FPDF {
   	private $data_title;
   	private $data_content = array();
-  	private $options = array(
-  		'filename' => '',
-  		'destinationfile' => '',
-  		'paper_size'=>'A4',
-  		'orientation'=>'L'
-  	);
+  	private $options = array();
 
   	function __construct($data_content = array(), $data_title, $options = array()) {
     	parent::__construct();
@@ -52,21 +47,21 @@ class FPDF_AutoWrapTable extends FPDF {
 		$left = $this->GetX();
 		$this->Cell(20,$h,'NO',1,0,'L',true);
 		$this->SetX($left += 20); $this->Cell(60, $h, 'NO INDUK', 1, 0, 'C',true);
-		$this->SetX($left += 60); $this->Cell(140, $h, 'NAMA', 1, 0, 'C',true);
-    $this->SetX($left += 140); $this->Cell(90, $h, 'ANGKATAN', 1, 0, 'C',true);
-    $this->SetX($left += 90); $this->Cell(90, $h, 'KELAS', 1, 0, 'C',true);
-		$this->SetX($left += 90); $this->Cell(55, $h, 'K. PEMB', 1, 0, 'C',true);
-		$this->SetX($left += 55); $this->Cell(110, $h, 'JENIS. PEMB', 1, 0, 'C',true);
-		$this->SetX($left += 110); $this->Cell(70, $h, 'PENYETOR', 1, 0, 'C',true);
-    $this->SetX($left += 70); $this->Cell(30, $h, 'PG', 1, 0, 'C',true);
+		$this->SetX($left += 60); $this->Cell(170, $h, 'NAMA', 1, 0, 'C',true);
+    $this->SetX($left += 170); $this->Cell(62, $h, 'ANGKATAN', 1, 0, 'C',true);
+    $this->SetX($left += 62); $this->Cell(45, $h, 'KELAS', 1, 0, 'C',true);
+		$this->SetX($left += 45); $this->Cell(55, $h, 'K. PEMB', 1, 0, 'C',true);
+		$this->SetX($left += 55); $this->Cell(70, $h, 'JENIS. PEMB', 1, 0, 'C',true);
+		$this->SetX($left += 70); $this->Cell(100, $h, 'PENYETOR', 1, 0, 'C',true);
+    $this->SetX($left += 100); $this->Cell(30, $h, 'PG', 1, 0, 'C',true);
 		$this->SetX($left += 30); $this->Cell(55, $h, 'NOMINAL', 1, 0, 'C',true);
 		$this->SetX($left += 55); $this->Cell(55, $h, 'HARGA', 1, 0, 'C',true);
-		$this->SetX($left += 55); $this->Cell(100, $h, 'TANGGAL', 1, 1, 'C',true);
+		$this->SetX($left += 55); $this->Cell(60, $h, 'TANGGAL', 1, 1, 'C',true);
 		//$this->Ln(20);
 
-		$this->SetFont('Arial','',9);
-		$this->SetWidths(array(20,60,140,90,90,55,110,70,30,55,55,100));
-		$this->SetAligns(array('C','C','C','L','C','C','L','C','C','R','R','C'));
+		$this->SetFont('Arial','',8);
+		$this->SetWidths(array(20,60,170,62,45,55,70,100,30,55,55,60));
+		$this->SetAligns(array('C','C','L','C','C','C','L','L','C','R','R','C'));
 		$no = 1; $this->SetFillColor(255);
     $jumlah_dibayarkan = 0;
     $jumlah_murid = 0;
@@ -86,7 +81,7 @@ class FPDF_AutoWrapTable extends FPDF {
 				'pembayaran_kode' => $data->pembayaran_kode,
         'pembayaran' => $data->pembayaran,
 				'penyetor' => $data->penyetor,
-				'program' => ($data->program == 'Reguler' ? 'R' : ($data->program == 'Fullday' ? 'F' : 'H')),
+				'program' => ($data->program == 'biasa' ? 'B' : 'F'),
 				'dibayarkan' => $data->nominal,
 				'harga' => $data->harga,
 				'tgl' => date('d M Y', strtotime($data->tgl_setoran))
@@ -118,7 +113,7 @@ class FPDF_AutoWrapTable extends FPDF {
 
 	public function printPDF () {
 
-		if ($this->options['paper_size'] == "A4") {
+		if ($this->options['paper_size'] == "") {
 			$a = 8.3 * 72; //1 inch = 72 pt
 			$b = 13.0 * 72;
 			$this->FPDF($this->options['orientation'], "pt", array($a,$b));
@@ -126,7 +121,7 @@ class FPDF_AutoWrapTable extends FPDF {
 			$this->FPDF($this->options['orientation'], "pt", $this->options['paper_size']);
 		}
 
-	    $this->SetAutoPageBreak(false);
+	    $this->SetAutoPageBreak(true);
 	    $this->AliasNbPages();
 	    $this->SetFont("helvetica", "B", 10);
 	    //$this->AddPage();
@@ -157,7 +152,7 @@ class FPDF_AutoWrapTable extends FPDF {
 		$nb=0;
 		for($i=0;$i<count($data);$i++)
 			$nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-		$h=10*$nb;
+		$h=20*$nb;
 		//Issue a page break first if needed
 		$this->CheckPageBreak($h);
 		//Draw the cells of the row
@@ -171,7 +166,7 @@ class FPDF_AutoWrapTable extends FPDF {
 			//Draw the border
 			$this->Rect($x,$y,$w,$h);
 			//Print the text
-			$this->MultiCell($w,10,$data[$i],0,$a);
+			$this->MultiCell($w,20,$data[$i],0,$a);
 			//Put the position to the right of the cell
 			$this->SetXY($x+$w,$y);
 		}

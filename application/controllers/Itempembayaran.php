@@ -61,7 +61,7 @@ class Itempembayaran extends CI_Controller{
     $data_edit              = $this->mitempembayaran->getitempembayaranby(array('item_pembayaran.id' => $id))->row_array();
 
     $data_page    = array(
-    'title'     => 'Edit Item Pembayaran',
+    'title'     => '<div class="navbar-brand" style="margin-left:-45px"><a href='.site_url('itempembayaran').'> Item Pembayaran</a> / Ubah </div>',
     'button'    => '',
     'side_bar'  => $this->mmenu->getmenu()->result(),
     'content'   => $this->parser->parse('item_pembayaran_edit', array( 'data_sekolah'          => $data_sekolah,

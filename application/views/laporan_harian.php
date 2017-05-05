@@ -47,7 +47,7 @@
                   <td style="text-align:center"><?php echo $data->program?></td>
                   <td><?php echo $data->pembayaran?></td>
                   <td style="text-align:right"><?php echo $data->nominal?></td>
-                  <td><?php echo date('d M Y', strtotime($data->tgl_setoran))?></td>
+                  <td style="text-align:center"><?php echo date('d M Y', strtotime($data->tgl_setoran))?></td>
               </tr>
             <?php endforeach ?>
           </tbody>
