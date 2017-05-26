@@ -57,7 +57,7 @@
                     for ($j=0; $j < sizeof($kode) ; $j++) {
                       if ($data->kode == $kode[$j]) {
                         $status = 1;
-                        $nilai_nominal = $nominal[$j];
+                        $nilai_nominal = $nilai_nominal+$nominal[$j];
                       }
                     }
                     if ($status == 1) :
@@ -133,7 +133,7 @@
                     for ($j=0; $j < sizeof($kode) ; $j++) {
                       if ($data->kode == $kode[$j]) {
                         $status = 1;
-                        $nilai_nominal = $nominal[$j];
+                        $nilai_nominal = $nilai_nominal+$nominal[$j];
                       }
                     }
                     if ($status == 1) :
@@ -209,7 +209,7 @@
                     for ($j=0; $j < sizeof($kode) ; $j++) {
                       if ($data->kode == $kode[$j]) {
                         $status = 1;
-                        $nilai_nominal = $nominal[$j];
+                        $nilai_nominal = $nilai_nominal+$nominal[$j];
                       }
                     }
                     if ($status == 1) :
